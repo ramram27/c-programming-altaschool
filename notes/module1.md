@@ -1,7 +1,4 @@
 # Fundamentals of Computers and Programming
-### B.Tech First Year — Course Notes
-
----
 
 ## Table of Contents
 

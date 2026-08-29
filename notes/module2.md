@@ -1,7 +1,4 @@
 # Programming in C
-### B.Tech First Year — Course Notes
-
----
 
 ## Table of Contents
 
