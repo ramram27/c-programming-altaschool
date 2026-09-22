@@ -190,16 +190,117 @@ After calculating the bill, ask whether the user wants to calculate another bill
 
 Use a do-while loop to repeat the program.
 
-10. Login System with Limited Attempts
 
-Write a program that asks the user to enter a username and password.
 
-Allow the user a maximum of 3 login attempts using a do-while loop.
+## for Loop Questions
 
-If the credentials are correct, display:
+C Programming – For Loop Coding Questions
 
-Login Successful
+1. Write a C program using a for loop to print numbers from 1 to 10.
 
-If the user fails all 3 attempts, display:
+2. Write a C program using a for loop to print numbers from 10 to 1.
 
-Account Locked
+3. Write a C program using a for loop to print all even numbers from 1 to 50.
+
+4. Write a C program using a for loop to print all odd numbers from 1 to 50.
+
+5. Write a C program using a for loop to find the sum of numbers from 1 to N.
+
+6. Write a C program using a for loop to print the multiplication table of a given number.
+
+7. Write a C program using a for loop to find the factorial of a given number.
+
+8. Write a C program using a for loop to count how many numbers between 1 and 100 are divisible by 5.
+
+9. Write a C program using a for loop to find the sum of all even numbers from 1 to N.
+
+10. Write a C program using a for loop to calculate the power of a number.
+
+11. Write a C program using nested for loops to print the following pattern:
+
+*
+**
+***
+****
+*****
+
+
+12. Write a C program using nested for loops to print the following pattern:
+
+*****
+****
+***
+**
+*
+
+
+13. Write a C program using nested for loops to print the following pattern:
+
+1
+12
+123
+1234
+12345
+
+
+14. Write a C program using nested for loops to print the following pattern:
+
+1
+22
+333
+4444
+55555
+
+
+15. Write a C program using nested for loops to print the following pattern:
+
+12345
+1234
+123
+12
+1
+
+
+16. Write a C program using nested for loops to print the following pattern:
+
+*****
+*****
+*****
+*****
+*****
+
+
+17. Write a C program using nested for loops to print the following pattern:
+
+    *
+   **
+  ***
+ ****
+*****
+
+
+18. Write a C program using nested for loops to print the following pattern:
+
+    *
+   ***
+  *****
+ *******
+*********
+
+
+19. Write a C program using nested for loops to print the following pattern:
+
+    1
+   123
+  12345
+ 1234567
+123456789
+
+
+20. Write a C program using nested for loops to print Floyd's Triangle:
+
+1
+23
+456
+78910
+1112131415
