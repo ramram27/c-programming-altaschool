@@ -454,5 +454,178 @@ Write a C program using nested for loops to print Floyd's Triangle:
 23
 456
 78910
+1112131411. Increasing Star Pattern
+Write a C program using nested for loops to print the following pattern:
+
+*
+**
+***
+****
+*****
+12. Decreasing Star Pattern
+Write a C program using nested for loops to print the following pattern:
+
+*****
+****
+***
+**
+*
+13. Increasing Number Pattern
+Write a C program using nested for loops to print the following pattern:
+
+1
+12
+123
+1234
+12345
+14. Repeated Number Pattern
+Write a C program using nested for loops to print the following pattern:
+
+1
+22
+333
+4444
+55555
+15. Decreasing Number Pattern
+Write a C program using nested for loops to print the following pattern:
+
+12345
+1234
+123
+12
+1
+16. Square Star Pattern
+Write a C program using nested for loops to print the following pattern:
+
+*****
+*****
+*****
+*****
+*****
+
+17. Right-Aligned Star Pattern
+Write a C program using nested for loops to print the following pattern:
+
+    *
+   **
+  ***
+ ****
+*****
+18. Star Pyramid
+Write a C program using nested for loops to print the following pattern:
+
+    *
+   ***
+  *****
+ *******
+*********
+19. Number Pyramid
+Write a C program using nested for loops to print the following pattern:
+
+    1
+   123
+  12345
+ 1234567
+123456789
+20. Floyd's Triangle
+Write a C program using nested for loops to print Floyd's Triangle:
+
+1
+23
+456
+78910
 1112131415
 ```
+
+## 21. Hollow Square Pattern
+Write a C program using nested `for` loops to print the following pattern:
+
+```text
+*****
+*   *
+*   *
+*   *
+*****
+```
+
+## 22. Hollow Rectangle Pattern
+Write a C program using nested `for` loops to print the following pattern:
+
+```text
+******
+*    *
+*    *
+*    *
+******
+```
+
+## 23. Right-Aligned Number Pattern
+Write a C program using nested `for` loops to print the following pattern:
+
+```text
+    1
+   12
+  123
+ 1234
+12345
+```
+
+## 26. Alphabet Increasing Pattern
+Wrte a C program using nested `for` loops to print the following pattern:
+
+```text
+A
+AB
+ABC
+ABCD
+ABCDE
+```
+
+## 27. Repeated Alphabet Pattern
+Write a C program using nested `for` loops to print the following pattern:
+
+```text
+A
+BB
+CCC
+DDDD
+EEEEE
+```
+
+## 28. Reverse Alphabet Pattern
+Write a C program using nested `for` loops to print the following pattern:
+
+```text
+ABCDE
+ABCD
+ABC
+AB
+A
+```
+
+## 29. Hollow Triangle Pattern
+Write a C program using nested `for` loops to print the following pattern:
+
+```text
+*
+**
+* *
+*  *
+*****
+```
+
+## 30. Diamond Star Pattern
+Write a C program using nested `for` loops to print the following pattern:
+
+```text
+    *
+   ***
+  *****
+ *******
+*********
+ *******
+  *****
+   ***
+    *
+```
+

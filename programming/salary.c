@@ -1,7 +1,5 @@
 #include<stdio.h>
-
 int main() {
-
     int exp,salary;
     printf("Enter a exp");
     scanf("%d",&exp);
@@ -18,3 +16,11 @@ int main() {
     }
     return 0;
 }
+
+
+
+
+
+
+    
+
