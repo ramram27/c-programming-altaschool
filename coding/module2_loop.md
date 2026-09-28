@@ -454,87 +454,7 @@ Write a C program using nested for loops to print Floyd's Triangle:
 23
 456
 78910
-1112131411. Increasing Star Pattern
-Write a C program using nested for loops to print the following pattern:
-
-*
-**
-***
-****
-*****
-12. Decreasing Star Pattern
-Write a C program using nested for loops to print the following pattern:
-
-*****
-****
-***
-**
-*
-13. Increasing Number Pattern
-Write a C program using nested for loops to print the following pattern:
-
-1
-12
-123
-1234
-12345
-14. Repeated Number Pattern
-Write a C program using nested for loops to print the following pattern:
-
-1
-22
-333
-4444
-55555
-15. Decreasing Number Pattern
-Write a C program using nested for loops to print the following pattern:
-
-12345
-1234
-123
-12
-1
-16. Square Star Pattern
-Write a C program using nested for loops to print the following pattern:
-
-*****
-*****
-*****
-*****
-*****
-
-17. Right-Aligned Star Pattern
-Write a C program using nested for loops to print the following pattern:
-
-    *
-   **
-  ***
- ****
-*****
-18. Star Pyramid
-Write a C program using nested for loops to print the following pattern:
-
-    *
-   ***
-  *****
- *******
-*********
-19. Number Pyramid
-Write a C program using nested for loops to print the following pattern:
-
-    1
-   123
-  12345
- 1234567
-123456789
-20. Floyd's Triangle
-Write a C program using nested for loops to print Floyd's Triangle:
-
-1
-23
-456
-78910
-1112131415
+1112131411. 
 ```
 
 ## 21. Hollow Square Pattern
@@ -629,3 +549,12 @@ Write a C program using nested `for` loops to print the following pattern:
     *
 ```
 
+## 32 Write a C program using nested `for` loops to print the following pattern:
+
+```text
+*   *
+ * * 
+  *  
+ * * 
+*   *
+```
