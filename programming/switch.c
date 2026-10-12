@@ -9,8 +9,6 @@ int main() {
         printf("pizza");
         break;
     case 2:
-
-    
         printf("cold coffie");
         break;
     case 3:
