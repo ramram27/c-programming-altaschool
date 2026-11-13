@@ -573,3 +573,591 @@ sizeof(s);   // 20 (total array size)
 | Rows of 2D array | `sizeof(m) / sizeof(m[0])` |
 | Columns of 2D array | `sizeof(m[0]) / sizeof(m[0][0])` |
 | String length | `strlen(s)` |
+
+
+
+## 1. Character Arrays
+
+A **character array** is a collection of `char` elements stored in contiguous memory locations.
+
+```c
+char name[6] = {'H','e','l','l','o','\0'};
+```
+
+**Key points**
+- Each element occupies 1 byte.
+- Indexing starts at 0.
+- Without a terminating `'\0'`, the array is just a character array, not a string.
+
+| Declaration | Meaning |
+|---|---|
+| `char a[5];` | Uninitialized array of 5 chars |
+| `char a[5] = {'a','b'};` | Remaining elements are set to `'\0'` |
+| `char a[] = "Hi";` | Size is auto-set to 3 (`H`, `i`, `\0`) |
+
+---
+
+## 2. Strings
+
+A **string** in C is a **null-terminated character array**. The null character `'\0'` (ASCII 0) marks the end of the string.
+
+### Declaration and initialization
+```c
+char s1[10];                    // declaration
+char s2[10] = "Hello";          // string literal; '\0' added automatically
+char s3[] = "Hello";            // size = 6
+char s4[] = {'H','e','l','l','o','\0'};
+char *s5 = "Hello";             // pointer to a string literal (read-only)
+```
+
+Memory layout of `"Hello"`:
+
+| Index | 0 | 1 | 2 | 3 | 4 | 5 |
+|---|---|---|---|---|---|---|
+| Value | H | e | l | l | o | \0 |
+
+### Reading and writing strings
+
+```c
+#include <stdio.h>
+int main() {
+    char name[30];
+    printf("Enter name: ");
+    scanf("%s", name);      // stops at whitespace; no & needed
+    printf("Hello %s\n", name);
+
+    char line[50];
+    getchar();              // consume leftover newline
+    fgets(line, sizeof(line), stdin);   // reads whole line with spaces
+    puts(line);
+    return 0;
+}
+```
+
+| Function | Behaviour |
+|---|---|
+| `scanf("%s", s)` | Reads until whitespace |
+| `scanf("%[^\n]", s)` | Reads a line with spaces |
+| `gets(s)` | Reads a line, but **unsafe and removed in C11** |
+| `fgets(s, n, stdin)` | Safe line input; keeps the `\n` |
+| `puts(s)` | Prints the string plus a newline |
+| `printf("%s", s)` | Prints the string |
+
+### Difference: array vs pointer string
+
+| `char s[] = "Hi";` | `char *s = "Hi";` |
+|---|---|
+| Copy stored in a modifiable array | Points to a read-only literal |
+| `s[0]='X';` is valid | `s[0]='X';` is undefined behaviour |
+| `sizeof(s)` = 3 | `sizeof(s)` = pointer size |
+
+---
+
+## 3. String Handling Functions (`<string.h>`)
+
+| Function | Purpose | Example |
+|---|---|---|
+| `strlen(s)` | Returns the length, excluding `'\0'` | `strlen("abc")` → 3 |
+| `strcpy(d, s)` | Copies `s` into `d` | `strcpy(a, "Hi");` |
+| `strncpy(d, s, n)` | Copies at most `n` chars | |
+| `strcat(d, s)` | Appends `s` to the end of `d` | |
+| `strncat(d, s, n)` | Appends at most `n` chars | |
+| `strcmp(a, b)` | Compares two strings | Returns 0 if equal, <0 if a<b, >0 if a>b |
+| `strncmp(a, b, n)` | Compares the first `n` chars | |
+| `strchr(s, c)` | Pointer to first occurrence of `c` | |
+| `strrchr(s, c)` | Pointer to last occurrence of `c` | |
+| `strstr(s, sub)` | Pointer to first occurrence of a substring | |
+| `strrev(s)` | Reverses the string (non-standard; works in Turbo C) | |
+| `strupr / strlwr` | Upper/lower case (non-standard) | |
+
+### Example using the library functions
+```c
+#include <stdio.h>
+#include <string.h>
+int main() {
+    char a[30] = "Hello", b[] = "World", c[30];
+    printf("%zu\n", strlen(a));      // 5
+    strcpy(c, a);                    // c = "Hello"
+    strcat(c, " ");                  // "Hello "
+    strcat(c, b);                    // "Hello World"
+    printf("%s\n", c);
+    printf("%d\n", strcmp(a, b));    // negative, since 'H' < 'W'
+    return 0;
+}
+```
+
+### Character functions (`<ctype.h>`)
+`isalpha()`, `isdigit()`, `isalnum()`, `isspace()`, `isupper()`, `islower()`, `toupper()`, `tolower()`
+
+### Writing your own versions (frequently asked)
+
+**String length**
+```c
+int myStrlen(char s[]) {
+    int i = 0;
+    while (s[i] != '\0') i++;
+    return i;
+}
+```
+
+**String copy**
+```c
+void myStrcpy(char d[], char s[]) {
+    int i = 0;
+    while ((d[i] = s[i]) != '\0') i++;
+}
+```
+
+**String reverse**
+```c
+void rev(char s[]) {
+    int i = 0, j = strlen(s) - 1;
+    while (i < j) {
+        char t = s[i]; s[i] = s[j]; s[j] = t;
+        i++; j--;
+    }
+}
+```
+
+**Palindrome check**: reverse the string and compare using `strcmp`, or compare `s[i]` with `s[n-1-i]`.
+
+**Common mistakes**
+- Forgetting space for `'\0'`.
+- Comparing strings with `==` (this compares addresses). Use `strcmp`.
+- Using `strcpy` when the destination is too small, which causes buffer overflow.
+- Using `&` with `%s` in `scanf`.
+
+---
+
+## 4. Introduction to Functions
+
+A **function** is a self-contained block of code that performs a specific task. `main()` is itself a function.
+
+**Advantages**
+- Modularity: a large problem is broken into smaller parts.
+- Reusability: write once, call many times.
+- Easier debugging and maintenance.
+- Reduces code size and redundancy.
+- Supports team development.
+
+### Three parts of a function
+
+**1. Function declaration (prototype)**
+```c
+return_type function_name(parameter_list);
+int add(int, int);
+```
+
+**2. Function definition**
+```c
+int add(int a, int b) {
+    return a + b;
+}
+```
+
+**3. Function call**
+```c
+int s = add(5, 3);
+```
+
+### Complete example
+```c
+#include <stdio.h>
+int square(int n);          // prototype
+
+int main() {
+    printf("%d", square(4)); // call
+    return 0;
+}
+int square(int n) {          // definition
+    return n * n;
+}
+```
+
+### The `return` statement
+- Sends a value back to the caller and ends the function.
+- A function can return only **one value** directly.
+- A `void` function returns nothing.
+
+---
+
+## 5. Types of Functions
+
+### A. Based on origin
+1. **Library (built-in) functions**: `printf()`, `sqrt()`, `strlen()`, `pow()`
+2. **User-defined functions**: written by the programmer.
+
+### B. Based on arguments and return value (4 categories)
+
+| Type | Arguments | Return value | Example |
+|---|---|---|---|
+| 1 | No | No | `void show();` |
+| 2 | Yes | No | `void show(int x);` |
+| 3 | No | Yes | `int getNum();` |
+| 4 | Yes | Yes | `int add(int a, int b);` |
+
+```c
+// Type 1: no args, no return
+void hello() { printf("Hello\n"); }
+
+// Type 2: args, no return
+void printSum(int a, int b) { printf("%d", a + b); }
+
+// Type 3: no args, return
+int readNum() { int n; scanf("%d", &n); return n; }
+
+// Type 4: args and return
+int mul(int a, int b) { return a * b; }
+```
+
+---
+
+## 6. Formal and Actual Arguments
+
+| Actual Arguments | Formal Arguments |
+|---|---|
+| Appear in the function **call** | Appear in the function **definition** |
+| Hold the real values or addresses | Receive the values; act as local variables |
+| Can be constants, variables, or expressions | Must be variables with declared types |
+
+```c
+int main() {
+    int x = 5, y = 3;
+    int r = add(x, y);   // x, y are ACTUAL arguments
+}
+int add(int a, int b) {  // a, b are FORMAL arguments
+    return a + b;
+}
+```
+
+**Rules**
+- The number, order, and types of arguments must match.
+- Formal parameters are created when the function is called and destroyed when it returns.
+- Actual arguments are copied into formal arguments (in call by value).
+
+---
+
+## 7. Parameter Passing in Functions
+
+C supports two techniques:
+1. **Call by Value**
+2. **Call by Reference** (simulated with pointers)
+
+### 7.1 Call by Value
+- A **copy** of the actual argument is passed.
+- Changes made in the function **do not affect** the original variables.
+- This is the **default** in C.
+
+```c
+void swap(int a, int b) {
+    int t = a; a = b; b = t;
+}
+int main() {
+    int x = 10, y = 20;
+    swap(x, y);
+    printf("%d %d", x, y);   // 10 20 (unchanged)
+}
+```
+
+### 7.2 Call by Reference (using pointers)
+- The **address** of the variable is passed.
+- The function accesses the original memory through the pointer, so changes **are reflected** in the caller.
+
+```c
+void swap(int *a, int *b) {
+    int t = *a; *a = *b; *b = t;
+}
+int main() {
+    int x = 10, y = 20;
+    swap(&x, &y);
+    printf("%d %d", x, y);   // 20 10
+}
+```
+
+> C has no true call by reference as in C++ (`int &a`). It is simulated by passing addresses, which is technically still call by value of the pointer.
+
+### Comparison
+
+| Feature | Call by Value | Call by Reference |
+|---|---|---|
+| What is passed | Copy of value | Address of variable |
+| Formal parameters | Normal variables | Pointers |
+| Effect on original | None | Original gets modified |
+| Memory | Extra memory for copies | No copy of data |
+| Call syntax | `f(x)` | `f(&x)` |
+| Safety | Safer | Risk of unintended changes |
+
+---
+
+## 8. Passing Arrays to Functions
+
+Array names decay to a **pointer to the first element**. So arrays are effectively passed by reference: the function works on the original array, not a copy.
+
+### Three equivalent ways to declare the parameter
+```c
+void f(int a[10]);
+void f(int a[]);
+void f(int *a);
+```
+
+The **size is not passed**, so it must be sent as a separate argument.
+
+### Example: 1-D array
+```c
+#include <stdio.h>
+void display(int a[], int n) {
+    for (int i = 0; i < n; i++) printf("%d ", a[i]);
+}
+void doubleIt(int a[], int n) {
+    for (int i = 0; i < n; i++) a[i] *= 2;   // modifies original
+}
+int main() {
+    int arr[5] = {1, 2, 3, 4, 5};
+    doubleIt(arr, 5);
+    display(arr, 5);       // 2 4 6 8 10
+}
+```
+
+### Passing a single element (call by value)
+```c
+void f(int x);
+f(arr[2]);        // passes a copy of one element
+```
+
+### Passing a 2-D array
+The **column size is mandatory**.
+```c
+void show(int a[][3], int rows) {
+    for (int i = 0; i < rows; i++)
+        for (int j = 0; j < 3; j++)
+            printf("%d ", a[i][j]);
+}
+int main() {
+    int m[2][3] = {{1,2,3},{4,5,6}};
+    show(m, 2);
+}
+```
+
+### Passing strings
+```c
+void printStr(char s[]) { puts(s); }
+```
+
+### Example: finding the largest element
+```c
+int max(int a[], int n) {
+    int m = a[0];
+    for (int i = 1; i < n; i++)
+        if (a[i] > m) m = a[i];
+    return m;
+}
+```
+
+**Remember:** `sizeof(a)` inside the function gives the pointer size, not the array size.
+
+---
+
+## 9. Nested Functions
+
+### Meaning
+"Nested function" can mean two things:
+
+**(a) Nested function calls**: one function calling another. This is fully supported in C.
+
+```c
+int square(int x) { return x * x; }
+int sumOfSquares(int a, int b) {
+    return square(a) + square(b);   // nested call
+}
+int main() {
+    printf("%d", sumOfSquares(3, 4));   // 25
+}
+```
+
+A call can also be an argument of another call:
+```c
+printf("%d", max(max(a, b), c));
+```
+
+**(b) Nested function definitions** (a function defined inside another function): **not allowed in standard C**. It is available only as a GCC extension.
+
+```c
+int main() {
+    void inner() { }    // ERROR in standard C
+}
+```
+
+**Call flow of nested calls** (using the stack):
+```
+main() → sumOfSquares() → square()
+                       ← returns to sumOfSquares()
+         ← returns to main()
+```
+
+---
+
+## 10. Recursion
+
+**Recursion** is a technique where a function **calls itself**, directly or indirectly, to solve a problem by breaking it into smaller subproblems of the same type.
+
+### Two essential parts
+1. **Base case**: the condition that stops the recursion.
+2. **Recursive case**: the function calls itself with a smaller or simpler input.
+
+Without a base case, the result is infinite recursion and a **stack overflow**.
+
+### Example 1: Factorial
+n! = n × (n−1)!, and 0! = 1
+
+```c
+int fact(int n) {
+    if (n == 0 || n == 1)    // base case
+        return 1;
+    return n * fact(n - 1);  // recursive case
+}
+```
+
+**Trace of `fact(4)`:**
+```
+fact(4) = 4 * fact(3)
+              = 3 * fact(2)
+                    = 2 * fact(1)
+                          = 1
+Returns: 1 → 2 → 6 → 24
+```
+
+### Example 2: Fibonacci
+```c
+int fib(int n) {
+    if (n == 0) return 0;
+    if (n == 1) return 1;
+    return fib(n - 1) + fib(n - 2);
+}
+```
+Time complexity is O(2ⁿ), which is inefficient.
+
+### Example 3: Sum of digits
+```c
+int sumDigits(int n) {
+    if (n == 0) return 0;
+    return (n % 10) + sumDigits(n / 10);
+}
+```
+
+### Example 4: GCD (Euclid's algorithm)
+```c
+int gcd(int a, int b) {
+    if (b == 0) return a;
+    return gcd(b, a % b);
+}
+```
+
+### Example 5: Power
+```c
+int power(int x, int n) {
+    if (n == 0) return 1;
+    return x * power(x, n - 1);
+}
+```
+
+### Example 6: Tower of Hanoi
+```c
+void hanoi(int n, char from, char to, char aux) {
+    if (n == 1) {
+        printf("Move disk 1 from %c to %c\n", from, to);
+        return;
+    }
+    hanoi(n - 1, from, aux, to);
+    printf("Move disk %d from %c to %c\n", n, from, to);
+    hanoi(n - 1, aux, to, from);
+}
+```
+Number of moves = 2ⁿ − 1.
+
+### Types of recursion
+
+| Type | Description |
+|---|---|
+| **Direct** | A function calls itself |
+| **Indirect** | A calls B, and B calls A |
+| **Tail recursion** | The recursive call is the last statement, so there is no pending work |
+| **Non-tail (head) recursion** | Work remains after the recursive call returns |
+| **Linear / Tree recursion** | One call per invocation (factorial) / multiple calls (Fibonacci) |
+
+**Indirect recursion example**
+```c
+void A(int n) { if (n > 0) { printf("%d ", n); B(n - 1); } }
+void B(int n) { if (n > 1) { printf("%d ", n); A(n / 2); } }
+```
+
+**Tail recursion example**
+```c
+int factTail(int n, int acc) {
+    if (n == 0) return acc;
+    return factTail(n - 1, acc * n);
+}
+```
+
+### How recursion works in memory
+Each call creates a **stack frame** holding parameters, local variables, and the return address. Frames are pushed on each call and popped on each return (LIFO).
+
+### Recursion vs Iteration
+
+| Recursion | Iteration |
+|---|---|
+| Function calls itself | Uses loops (`for`, `while`) |
+| Needs a base case | Needs a loop condition |
+| More memory (stack frames) | Less memory |
+| Slower due to call overhead | Faster |
+| Code is shorter and elegant | Code is longer |
+| Risk of stack overflow | No such risk |
+| Suits trees, divide and conquer, backtracking | Suits simple repetition |
+
+**Advantages**
+- Simple, clean code for naturally recursive problems.
+- Useful for trees, graphs, backtracking, and divide-and-conquer.
+
+**Disadvantages**
+- High memory usage and function call overhead.
+- Harder to debug.
+- Can overflow the stack.
+
+---
+
+## 11. Quick Revision: Important Points
+
+1. A string is a char array ending with `'\0'`.
+2. Use `strcmp()` to compare strings, never `==`.
+3. `strlen` excludes `'\0'`, while `sizeof` includes it.
+4. A function needs a declaration, definition, and call.
+5. Formal parameters are in the definition and actual arguments are in the call.
+6. C is **call by value** by default, and call by reference is done with pointers.
+7. Arrays are passed by address, so the function changes the original.
+8. Nested function calls are allowed, but nested definitions are not in standard C.
+9. Every recursive function must have a base case.
+10. Recursion uses the stack, and each call creates a new frame.
+
+---
+
+## 12. Common Exam Questions
+
+**Short**
+1. Differentiate between a character array and a string.
+2. Define formal and actual parameters.
+3. Why is `scanf("%s")` unsuitable for reading a full line?
+4. What is a base case in recursion?
+
+**Long**
+1. Explain any 5 string handling functions with examples.
+2. Explain call by value and call by reference with a swap program.
+3. Write a program to pass an array to a function and find the sum and largest element.
+4. Explain recursion. Write recursive programs for factorial and Fibonacci.
+5. Differentiate between recursion and iteration.
+
+**Programs to practice**
+- Count vowels, consonants, and words in a string.
+- Check a palindrome without using library functions.
+- Sort strings alphabetically.
+- Binary search using recursion.
+- Reverse a string recursively.
+- Convert a decimal to binary using recursion.
