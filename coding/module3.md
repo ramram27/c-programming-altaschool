@@ -162,3 +162,50 @@
 18. Write a C program to check whether a string is a palindrome using a function.
 19. Write a C program to swap two numbers using pointers.
 20. Write a C program to demonstrate call by value and pointer-based parameter passing.
+
+
+## A. Basic Recursion Programs
+
+Q1. Factorial of a Number
+
+Write a C program to calculate the factorial of a number using recursion.
+
+Q2. Sum of Natural Numbers
+
+Write a C program to calculate the sum of the first N natural numbers using recursion.
+
+Q3. Print Numbers from 1 to N
+
+Write a C program to print numbers from 1 to N using recursion.
+
+Q4. Print Numbers from N to 1
+
+Write a C program to print numbers from N to 1 using recursion.
+
+Q5. Calculate Power of a Number
+
+Write a C program to calculate \(a^b\) using recursion.
+
+## B. Intermediate Recursion Programs
+
+Q6. Fibonacci Series
+
+Write a C program to generate the Fibonacci series up to N terms using recursion.
+
+Q7. Sum of Digits
+
+Write a C program to calculate the sum of digits of a given number using recursion.
+
+Q8. Reverse a Number
+
+Write a C program to reverse a given number using recursion.
+
+## C. Advanced Recursion Programs
+
+Q9. Check Palindrome Number
+
+Write a C program to check whether a given number is a palindrome using recursion.
+
+Q10. GCD of Two Numbers
+
+Write a C program to find the Greatest Common Divisor (GCD) of two numbers using recursion.
