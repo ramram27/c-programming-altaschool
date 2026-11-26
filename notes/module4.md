@@ -481,6 +481,69 @@ for (i = 1; i < n; i++)
 printf("Topper: %s with %.2f marks\n", s[top].name, s[top].marks);
 ```
 
+## Example : Define a structure named Student containing Roll Number, Name, and Marks. Write a C program to input details of five students and display the details of the student who scored the highest marks.
+
+
+```c
+
+
+#include <stdio.h>
+
+
+struct Student
+{
+   int roll;
+   char name[50];
+   float marks;
+};
+
+
+int main()
+{
+   struct Student s[5];
+   int i, maxIndex = 0;
+
+
+   for(i = 0; i < 5; i++)
+   {
+       printf("\nEnter Student %d Details\n", i + 1);
+
+
+       printf("Enter Roll Number: ");
+       scanf("%d", &s[i].roll);
+
+
+       printf("Enter Name: ");
+       scanf(" %49[^\n]", s[i].name);
+
+
+       printf("Enter Marks: ");
+       scanf("%f", &s[i].marks);
+   }
+
+
+   for(i = 1; i < 5; i++)
+   {
+       if(s[i].marks > s[maxIndex].marks)
+       {
+           maxIndex = i;
+       }
+   }
+
+
+   printf("\nStudent with Highest Marks\n");
+   printf("Roll Number: %d\n", s[maxIndex].roll);
+   printf("Name: %s\n", s[maxIndex].name);
+   printf("Marks: %.2f\n", s[maxIndex].marks);
+
+
+   return 0;
+}
+
+
+```
+
+
 ### 7.5 Memory Layout
 
 Elements are stored **contiguously**. Total size = `n * sizeof(struct student)`.
